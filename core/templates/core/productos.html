@@ -1,0 +1,97 @@
+{% extends 'core/base.html' %}
+{% load static %}
+<title>{% block title %}PRODUCTOS{% endblock %}</title>
+
+{% block headers %}
+<h1>PRODUCTOS</h1>
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/productos.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/datatable.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<div class="container pt-5" style="margin-top: 80px;">
+  <div class="form-group">
+    <label for="category-filter">FILTRAR POR CATEGORIAS:</label>
+    <br>
+    <select id="category-filter" class="form-control">
+      <option value="">TODAS LAS CATEGORIAS</option>
+      {% for category in categoria %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+      {% endfor %}
+    </select>
+  </div> <br>
+
+<table id="data_table" class="table table-striped table-bordered" style="width:100%;">
+    <thead>
+      <tr>
+        <th>NOMBRE</th>
+        <th>DESCRIPCIÓN</th>
+        <th>PRODUCTOS</th>
+        <th>MARCA</th>
+        <th>CATEGORIAS</th>
+        <th>PRECIO </th>
+      </tr>
+    </thead>
+    <tbody id="product-table-body">
+
+      {% for project in projects %}
+      <tr class="product-row" data-category="{{ project.categories.all.0.id }}">
+        <td>{{ project.title }}</td>
+        <td>{{ project.descripcion }}</td>
+        <td><img src="{{ project.image.url }}" alt="" style="width:50px;"></td>
+        <td>{{ project.marca }}</td>
+        <td>{{ project.categories.all|join:", " }}</td> 
+        <td>${{ project.price|floatformat:3 }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+<script>
+  // Function to toggle the product table visibility
+  function toggleProducts() {
+    var productTable = $('#data_table');
+    if (productTable.is(':visible')) {
+      productTable.hide();
+    } else {
+      productTable.show();
+    }
+  }
+
+  // Attach the toggleProducts function to the click event of the toggle-products div
+  $('.toggle-products').on('click', function() {
+    toggleProducts();
+  });
+
+  // Filter products based on category
+  $('#category-filter').on('change', function() {
+    var selectedCategoryId = $(this).val();
+
+    if (selectedCategoryId === '') {
+      // Show all products if no category is selected
+      $('.product-row').show();
+    } else {
+      // Hide all products
+      $('.product-row').hide();
+
+      // Show only products from the selected category
+      $('.product-row[data-category="' + selectedCategoryId + '"]').show();
+    }
+  });
+
+  // Filter products by category initially
+  $('#category-filter').trigger('change');
+
+  // Initialize the datatable with 25 rows per page
+  $(document).ready(function() {
+    $('#data_table').DataTable({
+      "pageLength": 25
+    });
+  });
+</script>
+
+{% endblock %}

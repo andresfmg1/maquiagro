@@ -1,0 +1,67 @@
+
+
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title%}Inicio{% endblock %}
+
+{% block content %}
+
+
+
+<section >
+    <div class="container py-5">
+        <div class="row text-center py-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">Servicio </h1>
+                <p>
+                    Maquiagro jp ofrece excelentes servicios para la comunidad de Rovira.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            {% for servicio in servicios %}
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="#">
+                            <img src="{{ servicio.image.url }}" class="card-img-top img-fluid" alt="{{ servicio.title }}">
+
+                        </a>
+                        <div class="card-body py-3">
+                            <a href="#" class="h2 text-decoration-none text-dark">{{ servicio.title }}</a>
+                            <p class="card-text">
+                                {{ servicio.description }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+<div class="container" style="margin-bottom: 20px;">
+    <div class="row justify-content-center align-items-center" style="height: auto;">
+        <div class="col-md-8">
+            <h1 class="text-center text-success mb-4">Maquiagro JP Taller - Misión y Visión</h1>
+            {% for pag in pagi %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h2 class="card-title">{{ pag.title }}</h2>
+                    <p class="card-text">{{ pag.contenido|safe }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+      
+
+{% endblock %}

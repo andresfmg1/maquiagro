@@ -1,0 +1,72 @@
+.formulario_con {
+    max-width: 500px; 
+    margin: 0 auto;
+    margin-top:90px;
+    margin-bottom:20px;
+    padding: 10px;
+    text-align: center;
+    align-items: center;
+}
+
+
+
+
+/* Estilos para las etiquetas */
+label {
+    display: block;
+    
+   
+font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Estilos para los campos de entrada */
+input[type="text"],
+input[type="email"],
+select,
+
+select
+textarea {
+    width: 100%;
+    
+   
+padding: 10px;
+    border: 1px solid #ccc;
+    
+   
+border-radius: 4px;
+    
+   
+font-size: 16px;
+}
+
+/* Estilos para el botón */
+.button {
+    
+margin-top:10px;   
+    
+   
+color: #fbf8f8;
+    
+   
+border: none;
+
+text-align:center;
+
+    
+   
+padding: 10px 20px;
+    border-radius: 4px;
+    
+   
+cursor: pointer;
+    font-size: 16px;
+}
+
+h1{
+    color:#372F2F;
+}
+
+.button{
+    margin-top:10px;
+}

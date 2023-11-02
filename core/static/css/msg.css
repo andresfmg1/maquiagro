@@ -1,0 +1,36 @@
+.messages {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.messages li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Estilos para mensajes de éxito */
+.messages .success {
+    background-color: #4CAF50; /* Color de fondo verde para éxito */
+    color: #fff; /* Texto en blanco */
+}
+
+/* Estilos para mensajes de error */
+.messages .error {
+    background-color: #f44336; /* Color de fondo rojo para error */
+    color: #fff; /* Texto en blanco */
+}
+
+/* Estilos para mensajes de advertencia */
+.messages .warning {
+    background-color: #ff9800; /* Color de fondo naranja para advertencia */
+    color: #fff; /* Texto en blanco */
+}
+
+/* Estilos para mensajes informativos */
+.messages .info {
+    background-color: #2196F3; /* Color de fondo azul para información */
+    color: #fff; /* Texto en blanco */
+}

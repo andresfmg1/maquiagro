@@ -1,0 +1,38 @@
+{% extends 'core/base.html'%} 
+
+{% load static %}
+<title>{% block title %}REGISTRO{% endblock %}</title>
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/registro.css' %}">
+
+<main role="main">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-9 mx-auto mb-5">
+        <form action="" method="POST" class="formulario" onsubmit="habilitarBoton()">
+          {% csrf_token %}
+          <h1 style="color:black">REGISTRO</h1>
+          {{ form.as_p }}
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="terminos" name="terminos" onclick="habilitarBoton()">
+              <label class="form-check-label" for="terminos">Acepto los términos y condiciones</label>
+            </div>
+          </div>
+          <p><input type="submit" class="btn btn-success btn-block" value="Confirmar" id="disabledFieldsetCheck" disabled></p>
+          <a style="color: rgb(48, 39, 39);" href="{% url 'login'%}" class="boton_regi" >¡¡Ya Tengo Cuenta!!</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+  
+  function habilitarBoton() {
+      var checkbox = document.getElementById('terminos');
+      var boton = document.getElementById('disabledFieldsetCheck');
+      boton.disabled = !checkbox.checked;
+  }
+</script>
+{% endblock %}

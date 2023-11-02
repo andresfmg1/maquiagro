@@ -1,0 +1,37 @@
+{% load humanize %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mensaje al usuario</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mensaje.css' %}">
+</head>
+<body>
+    <table width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+            <td style="background-color: #007bff; color: #fff; padding: 10px; text-align: center;">
+                <h1>Confirmación de Pedido</h1>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 20px;">
+                <p>Hola {{nombreusuario}}</p>
+                <p>Nº de pedido: {{pedido.id}}</p>
+                <p>Email del usuario: {{emailusuario}}</p>
+                <p>Ciudad: {{ user_profile_form.ciudad.value }}</p>
+                <p>Dirección: {{ user_profile_form.direccion.value }}</p>
+                <p>Teléfono: {{ user_profile_form.telefono.value }}</p>
+                <p>Productos:</p>
+                <ul>
+                    {% for linea in lineas_pedido %}
+                    <li>{{ linea.producto.title }} (Cantidad: {{ linea.cantidad }})</li>
+                    {% endfor %}
+                <p>Codigo postal: {{ user_profile_form.codigo_postal.value }}</p>
+                <p>Precio Total: ${{ precio_total|floatformat:3|intcomma}}</p>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

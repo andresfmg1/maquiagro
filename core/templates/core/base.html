@@ -1,0 +1,373 @@
+
+
+  <!DOCTYPE html>
+  <html lang="en">
+  
+  <head>
+    {% load static %}
+      <title>{%block title%}INICIO{%endblock%}</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+      <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+      <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+  
+      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+      <link rel="stylesheet" href="{% static 'css/templatemo.css'%}">
+      <link rel="stylesheet" href="{% static 'css/contactos.css'%}">
+      <link rel="stylesheet" href="{% static 'css/login.css'%}">
+      <link rel="stylesheet" href="{% static 'css/registration.css'%}">
+      <link rel=" stylesheet" href="https://code.jquery.com/jquery-3.7.0.js">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Load fonts style after rendering the layout styles -->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+      <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+      
+  <!--
+      
+  TemplateMo 559 Zay Shop
+  
+  https://templatemo.com/tm-559-zay-shop
+  
+  -->
+  </head>
+  
+  <body>
+      <!-- Start Top Nav -->
+  
+   
+      <!-- Close Top Nav -->
+    
+  
+      <!-- Header -->
+      <nav class="menu navbar navbar-expand-lg navbar-light shadow">
+          <div class="container d-flex justify-content-between align-items-center">
+  
+              <a class=" navbar-brand text-success logo h1 align-self-center">
+                  Maquiagro JP
+              </a>
+  
+              <button class=" navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+  
+              <div  class="malign-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                  <div class="flex-fill">
+                        <ul  class="menu nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                            <li style="margin: 1px 5px 1px 5px;" class="nav-item">
+                                <a class="nav-link" href="{% url 'inicio' %}">inicio</a>
+                            </li>
+                            <li style="margin: 1px 5px 1px 5px;" class="nav-item">
+                                <a class="nav-link" href="{%url 'productos'%}">Productos</a>
+                            </li>
+                            <li style="margin: 1px 5px 1px 5px;" class="nav-item">
+                                <a class="nav-link" href="{% url 'portafolio' %}">Portafolio</a>
+                            </li>
+                            <li style="margin: 1px 5px 1px 5px;" class="nav-item">
+                                <a class="nav-link" href="{%url 'contacto'%}">Contacto</a>
+                            </li>
+                            {% if user.is_authenticated %}
+                            <li style="margin: 1px 5px 1px 5px;" class="nav-item" id="bienvenida">
+                                <a class="nav-link" id="nombre-usuario" >Bienvenido {{ user.username }}</a>
+                            </li>
+                            <li class="nav-item" id="cerrar-sesion" style="float:left;">
+                                <a class="nav-link" href="#" id="cerrar-sesion-link"><i class="bi bi-box-arrow-right"></i></a>
+                            </li>
+                            <!-- Ventana modal de confirmación -->
+                            <div class="modal fade" id="confirmacionModal" tabindex="-1" role="dialog" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="confirmacionModalLabel">Confirmación</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Estás seguro de que deseas cerrar la sesión?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <button type="button" class="btn btn-primary" id="confirmarCerrarSesion">Aceptar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                            <script>
+                                // Agregar un manejador de eventos al enlace "Cerrar Sesión"
+                                document.getElementById("cerrar-sesion-link").addEventListener("click", function(event) {
+                                    event.preventDefault(); // Evitar la acción predeterminada de navegación
+                                    $("#confirmacionModal").modal("show"); // Mostrar la ventana modal de confirmación
+                                });
+                            
+                                // Agregar un manejador de eventos al botón "Aceptar" de la ventana modal
+                                document.getElementById("confirmarCerrarSesion").addEventListener("click", function() {
+                                    window.location.href = "{% url 'logout' %}"; // Redirigir al cierre de sesión
+                                });
+                                $(".close").on("click", function() {
+                                    $("#confirmacionModal").modal("hide"); // Ocultar la ventana modal
+                                });
+
+                                // Agregar un manejador de eventos al botón "Cancelar" de la ventana modal
+                                $(".btn-secondary").on("click", function() {
+                                    $("#confirmacionModal").modal("hide"); // Ocultar la ventana modal
+                                });
+                            </script>
+                          {% else %}
+                            <li style="margin: 1px 5px 1px 5px;" class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">login</a>
+                            </li>
+                            <li style="margin: 1px 5px 1px 5px;" class="nav-item">
+                                <a class="nav-link" href="{%url 'signup'%}">Registrarse</a>
+                            </li>
+                          {% endif %}
+                        </ul>
+                  </div>  
+              </div>
+          </div>
+      </nav>
+
+      <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="container">
+                    <div class="row p-5">
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                            <img class="img-fluid" src="{%static 'img/motosierra.png'%}"style="height: 500px;" alt="">
+                        </div>
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left align-self-center">
+                              
+                                <h3 class="h2">Servicios de Taller de Maquinaria Agrícola</h3>
+                                <p>
+                                    En nuestro taller de maquinaria agrícola, nos especializamos en la reparación y mantenimiento de todo tipo de equipos agrícolas. Nuestro equipo de técnicos altamente capacitados
+                                         <strong>en Rovira</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="container">
+                    <div class="row p-5">
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                            <img class="img-fluid" src="{%static 'img/guadana.png'%}"style="height: 500px;" alt="">
+                        </div>
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left">
+                                <h1 class="h1">Taller Maquiagro JP</h1>
+                                <h3 class="h2">Rovira</h3>
+                                <p>
+                                    En nuestra compañía ubicada en Rovira, nos especializamos en brindar soluciones integrales para la maquinaria agrícola. Nuestro equipo de técnicos altamente formados abarca un amplio espectro de especialidades, lo que nos permite ofrecer servicios de reparación y mantenimiento de equipos agrícolas líderes en calidad.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="container">
+                    <div class="row p-5">
+                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                            <img class="img-fluid" src="{%static 'img/fumigadora.png'%}"style="height: 500px;" alt="" >
+                        </div>
+                        <div class="col-lg-6 mb-0 d-flex align-items-center">
+                            <div class="text-align-left">
+                                <h1 class="h1">Taller Maquiagro  JP</h1>
+                                <h3 class="h2">Rovira </h3>
+                                <p>
+                                    En Rovira y sus alrededores, somos conocidos por ser la referencia en servicios de maquinaria agrícola. Nuestro equipo de técnicos, con una formación excepcional en diferentes áreas, se encarga de la reparación y mantenimiento de una amplia variedad de equipos agrícolas, garantizando un rendimiento óptimo en cada tarea.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </div>
+     
+
+          
+          
+          
+          
+          
+          
+      
+      <!-- Close Header -->
+    
+  
+      <!-- Modal -->
+      {% block content %}
+
+
+    
+      <!-- Cabecera -->
+    
+  
+    {% endblock %}
+    
+  
+  
+      <!-- Start Banner Hero -->
+     
+      <!-- End Banner Hero -->
+  
+  
+      <!-- Start Categories of The Month -->
+    
+      <!-- End Categories of The Month -->
+  
+  
+      <!-- Start Featured Product -->
+    
+      <!-- End Featured Product -->
+  
+  
+      <!--Start Footer -->
+   
+   
+    
+   
+      <footer class="bg-dark" id="tempaltemo_footer">
+      
+    
+  
+          <div class="container">
+              <div class="row">
+  
+                  <div class="col-md-4 pt-5">
+                      <h2 class="h2 text-success border-bottom pb-3 border-light logo">Maquiagro JP</h2>
+                      <ul class="list-unstyled text-light footer-link-list">
+                          <li>
+                            <i class="bi bi-geo-alt"></i>
+                              Cra 4# 5-85 Centro Rovira
+                          </li>
+                          <li>
+                            <i class="bi bi-telephone"></i>
+                              <a class="text-decoration-none" href="tel:010-020-0340">3114441282</a>
+                          </li>
+                      
+                      </ul>
+                  </div>
+  
+                  <div class="col-md-4 pt-5">
+                      <h2 class="h2 text-light border-bottom pb-3 border-light">Productos</h2>
+                      <ul class="list-unstyled text-light footer-link-list">
+                          <li><a class="text-decoration-none" href="#">Implementos agricolas</a></li>
+                          <li><a class="text-decoration-none" href="#">Aceite dos tiempos</a></li>
+                          <li><a class="text-decoration-none" href="#">Respuesto</a></li>
+                          <li><a class="text-decoration-none" href="#">Motosierras</a></li>
+                          <li><a class="text-decoration-none" href="#">Guadañas</a></li>
+                       
+                      </ul>
+                  </div>
+  
+                  <div class="col-md-4 pt-5">
+                      <h2 class="h2 text-light border-bottom pb-3 border-light">Información Adicional</h2>
+                      <ul class="list-unstyled text-light footer-link-list">
+                          <li><a class="text-decoration-none" href="#">Inicio</a></li>
+                          <li><a class="text-decoration-none" href="#">Maquiagro</a></li>
+                          <li><a class="text-decoration-none" href="#">productos</a></li>
+                          <li><a class="text-decoration-none" href="#">Contacto</a></li>
+                      </ul>
+                  </div>
+                </div>
+  
+             <!-- Pié de página -->
+           </div>
+
+           <div class="my-footer" class="my-footer">
+           <div class="row">
+             <div class="col-lg-8 col-md-10 mx-auto">
+               <ul class="list-inline text-center">
+                 {% for i in redes %}
+                 <li class="list-inline-item">
+                   <a style="color: white" href="{{i.link}}">
+                     {{i.icono | safe }}
+                   </a>
+                 </li>
+                 {% endfor %}
+                </ul>
+              </div>
+            </div>
+       <style>
+        .bi-whatsapp {
+            font-size: 2.0em; }
+          
+            .bi-facebook{
+            font-size: 2.0em;    
+            }
+        .bi-youtube{
+            font-size:2.0em;
+        }
+
+        .bi-person-fill{
+            font-size:2.5em;
+        }
+        </style>
+          
+
+  <div class="w-100 bg-black py-3">
+      <div class="container">
+          <div class="row pt-2">
+              <div class="col-12">
+                  <p class="text-center text-light">
+                      Copyright &copy; 2023 Maquiagro JP
+                      
+                  </p>
+              </div>
+          </div>
+      </div>
+  </div>
+
+</footer>
+
+      <!-- End Footer -->
+  
+      <!-- Start Script -->
+      
+      <script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
+      <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="js/clean-blog.min.js"></script>
+      <script src="{%static 'js/jquery-1.11.0.min.js' %}"></script>
+      <script src="{%static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
+      <script src="{%static 'js/bootstrap.bundle.min.js'%}"></script>
+      <script src="{%static 'js/templatemo.js'%}"></script>
+      <script src="{%static 'js/custom.js'%}"></script>
+
+      <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
+      <script defer src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+      <script defer src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+      <!-- Añade estos scripts en tu base.html -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- Añade esto en tu base.html -->
+
+
+
+      <!-- End Script -->
+      <script defer src={% static 'js/script.js' %}></script>
+  </body>
+  </html>

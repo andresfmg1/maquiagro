@@ -1,0 +1,65 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Iniciar sesión{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/loginn.css' %}">
+
+<main role="main">
+  <div class="container">
+    <div class="row mt-3 justify-content-center"> <!-- Centra el contenido -->
+      <div class="col-md-8"> <!-- Cambia el ancho en pantallas pequeñas -->
+        {% if 'register' in request.GET %}
+        <script>
+          setTimeout(function() {
+            var alertElement = document.querySelector('.alert');
+            alertElement.style.display = 'none';
+          }, 3000);
+        </script>
+        <div class="alert alert-success">
+          <p>¡Usuario creado correctamente!</p>
+        </div>
+        {% endif %}
+        <form action="" method="post" class="needs-validation" novalidate>{% csrf_token %}
+          <h3 class="mb-4">INICIAR SESIÓN</h3>
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+              Usuario o contraseña incorrectos, prueba de nuevo.
+            </div>
+          {% endif %}
+          <div class="form-group">
+            <label for="id_username">Nombre de usuario</label>
+            <input type="text" name="username" autofocus maxlength="254" required
+              id="id_username" class="form-control" placeholder="Nombre de usuario"/>
+            <div class="invalid-feedback">
+              Por favor, ingresa tu nombre de usuario.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="id_password">Contraseña</label>
+            <input type="password" name="password" required
+              id="id_password" class="form-control" placeholder="Contraseña"/>
+            <div class="invalid-feedback">
+              Por favor, ingresa tu contraseña.
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success btn-block">Acceder</button>
+          <a href="{% url 'signup'%}" class="btn btn-secondary btn-block">No tengo cuenta</a>
+          <a href="{% url 'password_reset' %}" class="btn btn-link">¿Olvidaste tu contraseña?</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<style>
+  /* Agregar estilos CSS personalizados aquí si es necesario para pantallas pequeñas */
+  @media (max-width: 576px) { /* Estilos para pantallas pequeñas */
+    .col-md-8 {
+      width: 100%; /* Ocupar todo el ancho en pantallas pequeñas */
+    }
+  }
+</style>
+
+{% endblock %}

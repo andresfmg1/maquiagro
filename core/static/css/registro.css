@@ -1,0 +1,53 @@
+.errorlist {
+  color: red;
+}
+
+form {
+  width: 90%; /* Cambia el ancho del formulario para que se ajuste a pantallas pequeñas */
+  max-width: 600px; /* Establece un ancho máximo para pantallas grandes */
+  margin: 0 auto;
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #f4f4f4;
+  border-radius: 5px;
+  background: linear-gradient(to bottom, #f4f4f4, #d6d6cd);
+}
+
+h1 {
+  text-align: center;
+  color: #372F2F;
+  font-weight: bold;
+  margin: 13px 0;
+  font-size: 24px; /* Reduce el tamaño de fuente para pantallas pequeñas */
+}
+
+label {
+  text-align: left;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 18px; /* Reduce el tamaño de fuente para pantallas pequeñas */
+  font-weight: bold;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px; /* Reduce el espaciado interior */
+  margin-bottom: 15px; /* Reduce el espaciado entre elementos */
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Reduce el radio del borde */
+  font-size: 18px; /* Reduce el tamaño de fuente para pantallas pequeñas */
+}
+
+input[type="submit"] {
+  color: white;
+  padding: 10px 20px; /* Ajusta el espaciado del botón */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px; /* Reduce el tamaño de fuente para pantallas pequeñas */
+}
+
+input[type="submit"]:hover {
+  padding: 14px; /* Ajusta el espaciado en el hover */
+}

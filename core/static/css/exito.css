@@ -1,0 +1,12 @@
+.container-complete{
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top:100px;
+    margin-bottom:100px;
+    color:#070504;    
+    padding: 20px;
+    background: linear-gradient(to bottom, #f4f4f4, #e4e4dd);       
+    text-align: center;
+    border: 1px solid  #f4f4f4;;
+    border-radius: 5px;
+}

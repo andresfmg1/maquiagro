@@ -1,0 +1,338 @@
+
+
+
+
+
+  {% load static %}
+    <title>{%block title%}Portafolio{%endblock%}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/templatemo.css'%}">
+    <link rel="stylesheet" href="{% static 'css/contactos.css'%}">
+    <link rel="stylesheet" href="{% static 'css/login.css'%}">
+    <link rel="stylesheet" href="{% static 'css/registration.css'%}">
+    <link rel=" stylesheet" href="https://code.jquery.com/jquery-3.7.0.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/portafolio.css' %}">
+    
+<!--
+    
+TemplateMo 559 Zay Shop
+
+https://templatemo.com/tm-559-zay-shop
+
+-->
+</head>
+
+<body>
+    <!-- Start Top Nav -->
+
+ 
+    <!-- Close Top Nav -->
+  
+
+    <!-- Header -->
+    <nav class="menu navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <a class=" navbar-brand text-success logo h1 align-self-center" href="index.html">
+                Maquiagro JP
+            </a>
+
+            <button class=" navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div  class="malign-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                      <ul  class="menu nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                          <li style="margin: 1px 5px 1px 5px;" class="nav-item">
+                              <a class="nav-link" href="{% url 'inicio' %}">inicio</a>
+                          </li>
+                          <li style="margin: 1px 5px 1px 5px;" class="nav-item">
+                              <a class="nav-link" href="{%url 'productos'%}">Productos</a>
+                          </li>
+                          <li style="margin: 1px 5px 1px 5px;" class="nav-item">
+                              <a class="nav-link" href="{% url 'portafolio' %}">Portafolio</a>
+                          </li>
+                          <li style="margin: 1px 5px 1px 5px;" class="nav-item">
+                              <a class="nav-link" href="{%url 'contacto'%}">Contacto</a>
+                          </li>
+                          {% if user.is_authenticated %}
+                          <li style="margin: 1px 5px 1px 5px;" class="nav-item" id="bienvenida">
+                              <a class="nav-link" id="nombre-usuario" >Bienvenido {{ user.username }}</a>
+                          </li>
+                          <li class="nav-item" id="cerrar-sesion" style="float:left;">
+                              <a class="nav-link" href="#" id="cerrar-sesion-link"><i class="bi bi-box-arrow-right"></i></a>
+                          </li>
+                          <!-- Ventana modal de confirmación -->
+                          <div class="modal fade" id="confirmacionModal" tabindex="-1" role="dialog" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="confirmacionModalLabel">Confirmación</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                      <div class="modal-body">
+                                          ¿Estás seguro de que deseas cerrar la sesión?
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                          <button type="button" class="btn btn-primary" id="confirmarCerrarSesion">Aceptar</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                          <script>
+                              // Agregar un manejador de eventos al enlace "Cerrar Sesión"
+                              document.getElementById("cerrar-sesion-link").addEventListener("click", function(event) {
+                                  event.preventDefault(); // Evitar la acción predeterminada de navegación
+                                  $("#confirmacionModal").modal("show"); // Mostrar la ventana modal de confirmación
+                              });
+                          
+                              // Agregar un manejador de eventos al botón "Aceptar" de la ventana modal
+                              document.getElementById("confirmarCerrarSesion").addEventListener("click", function() {
+                                  window.location.href = "{% url 'logout' %}"; // Redirigir al cierre de sesión
+                              });
+                              $(".close").on("click", function() {
+                                  $("#confirmacionModal").modal("hide"); // Ocultar la ventana modal
+                              });
+
+                              // Agregar un manejador de eventos al botón "Cancelar" de la ventana modal
+                              $(".btn-secondary").on("click", function() {
+                                  $("#confirmacionModal").modal("hide"); // Ocultar la ventana modal
+                              });
+                          </script>
+                        {% else %}
+                          <li style="margin: 1px 5px 1px 5px;" class="nav-item">
+                              <a class="nav-link" href="{% url 'login' %}">login</a>
+                          </li>
+                          <li style="margin: 1px 5px 1px 5px;" class="nav-item">
+                              <a class="nav-link" href="{%url 'signup'%}">Registrarse</a>
+                          </li>
+                        {% endif %}
+                      </ul>
+                </div>  
+            </div>
+        </div>
+    </nav>
+
+  
+   
+
+        
+        
+        
+        
+        
+        
+    
+    <!-- Close Header -->
+  
+
+    <!-- Modal -->
+  
+   
+   
+    
+   
+   
+    
+    <div class="container-project">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row">
+                    {% for project in projects %}
+                        <div class="col-md-4 mb-5">
+                            <div class="card h-100">
+                                <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">{{ project.title }}</h5>
+                                    <p class="card-text">{{ project.descripcion }}</p>
+                                    <p class="card-text">$ {{ project.price|floatformat:3 }}</p>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <a href="{% url 'carro:agregar' project.id %}" class="btn btn-success w-75 boton_sumar"><i class="bi bi-cart-plus"></i> Agregar al carrito</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+    
+            <div class="col-md-3">
+                <div class="py-4">
+                    {% if request.user.is_authenticated %}
+                        {% include "carrito/widget.html" %}
+                    {% else %}
+                        <div class="alert alert-danger text-center">
+                            <p class="mb-2">Inicia sesión para ver el carrito de compras</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+   
+
+
+    <!-- Start Banner Hero -->
+   
+    <!-- End Banner Hero -->
+
+
+    <!-- Start Categories of The Month -->
+  
+    <!-- End Categories of The Month -->
+
+
+    <!-- Start Featured Product -->
+  
+    <!-- End Featured Product -->
+
+
+    <!--Start Footer -->
+ 
+ 
+  
+ 
+    <footer class="bg-dark" id="tempaltemo_footer">
+    
+  
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Maquiagro JP</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li>
+                          <i class="bi bi-geo-alt"></i>
+                            Cra 4# 5-85 Centro Rovira
+                        </li>
+                        <li>
+                          <i class="bi bi-telephone"></i>
+                            <a class="text-decoration-none" href="tel:010-020-0340">3114441282</a>
+                        </li>
+                    
+                    </ul>
+                </div>
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">Productos</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li><a class="text-decoration-none" href="#">Implementos agricolas</a></li>
+                        <li><a class="text-decoration-none" href="#">Aceite dos tiempos</a></li>
+                        <li><a class="text-decoration-none" href="#">Respuesto</a></li>
+                        <li><a class="text-decoration-none" href="#">Motosierras</a></li>
+                        <li><a class="text-decoration-none" href="#">Guadañas</a></li>
+                     
+                    </ul>
+                </div>
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">Información Adicional</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li><a class="text-decoration-none" href="#">Inicio</a></li>
+                        <li><a class="text-decoration-none" href="#">Maquiagro</a></li>
+                        <li><a class="text-decoration-none" href="#">productos</a></li>
+                        <li><a class="text-decoration-none" href="#">Contacto</a></li>
+                    </ul>
+                </div>
+              </div>
+
+           <!-- Pié de página -->
+         </div>
+
+         <div class="my-footer" class="my-footer">
+         <div class="row">
+           <div class="col-lg-8 col-md-10 mx-auto">
+             <ul class="list-inline text-center">
+               {% for i in redes %}
+               <li class="list-inline-item">
+                 <a style="color: white" href="{{i.link}}">
+                   {{i.icono | safe }}
+                 </a>
+               </li>
+               {% endfor %}
+              </ul>
+            </div>
+          </div>
+     <style>
+      .bi-whatsapp {
+          font-size: 2.0em; }
+        
+          .bi-facebook{
+          font-size: 2.0em;    
+          }
+      .bi-youtube{
+          font-size:2.0em;
+      }
+
+      .bi-person-fill{
+          font-size:2.5em;
+      }
+      </style>
+        
+
+<div class="w-100 bg-black py-3">
+    <div class="container">
+        <div class="row pt-2">
+            <div class="col-12">
+                <p class="text-center text-light">
+                    Copyright &copy; 2023 Maquiagro JP
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</footer>
+
+    <!-- End Footer -->
+
+    <!-- Start Script -->
+    
+    <script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="js/clean-blog.min.js"></script>
+    <script src="{%static 'js/jquery-1.11.0.min.js' %}"></script>
+    <script src="{%static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
+    <script src="{%static 'js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{%static 'js/templatemo.js'%}"></script>
+    <script src="{%static 'js/custom.js'%}"></script>
+
+    <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <!-- Añade estos scripts en tu base.html -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <!-- Añade esto en tu base.html -->
+
+
+
+    <!-- End Script -->
+    <script defer src={% static 'js/script.js' %}></script>
+</body>
+</html>
+

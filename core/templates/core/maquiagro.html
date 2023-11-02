@@ -1,0 +1,28 @@
+{%extends 'core/base.html'%}
+{%load static%}
+<title>{%block title%}Maquiagro{%endblock%}</title>
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/maquiagro.css' %}">
+
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-8">
+            <h1 class="text-center text-success mb-5 " id="titulo" >Maquiagro JP Taller - Misión y Visión</h1>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">Visión de Maquiagro Taller:</h2>
+                    <p class="card-text">Ser reconocidos como el taller líder en Rovira, Tolima, ofreciendo servicios de alta calidad y soluciones innovadoras en el mantenimiento y reparación de maquinaria agrícola, satisfaciendo las necesidades de nuestros clientes y contribuyendo al desarrollo del sector agrícola de la región.</p>
+                </div>
+            </div>
+            <div class="card mb-4" id="Misión">
+                <div class="card-body">
+                    <h2 class="card-title">Misión de Maquiagro Taller:</h2>
+                    <p class="card-text">En Maquiagro, nuestro compromiso es brindar servicios especializados de mantenimiento y reparación de maquinaria agrícola con altos estándares de calidad, utilizando tecnología avanzada y personal altamente capacitado. Buscamos ofrecer soluciones integrales a nuestros clientes, garantizando su satisfacción y contribuyendo al crecimiento sostenible del sector agrícola en Rovira, Tolima. Nuestro enfoque es la excelencia en el servicio y la generación de valor para nuestros clientes y la comunidad.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{%endblock%}

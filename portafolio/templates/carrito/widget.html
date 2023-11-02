@@ -1,0 +1,148 @@
+{% load static %}
+{% load humanize %}
+<style>
+/* Estilos para pantallas medianas y grandes */
+@media screen and (min-width: 768px) {
+    .table-container {
+        grid-template-columns: 1fr 300px;
+    }
+}
+</style>
+
+<body>
+    <link rel="stylesheet" href="{% static 'css/msg.css'%}">
+<div class="container" id="table-car">
+    <div class="table-container">
+        <div class="table-wrapper">
+            <table class="table table-bordered">
+                {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+                <thead>
+                <tr>
+                    <th colspan="3" class="text-center">
+                        Carro compras
+                    </th>
+                </tr>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Suma</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if request.session.carrito.items %}
+                    {% for key, value in request.session.carrito.items %}
+                        <tr class="text-center">
+                            <td>{{ value.nombre }}</td>
+                            <td>{{ value.cantidad }}</td>
+                            <td colspan="3">
+                                <a href="{% url 'carro:agregar' value.producto_id %}" class="btn btn-sm btn-success boton_sumar">+</a>
+                                <a href="{% url 'carro:restar' value.producto_id %}" class="btn btn-sm btn-danger boton_restar">-</a>
+                                ${{ value.precio|floatformat:3|intcomma}} 
+                            </td>
+                        
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td style="text-align: center;" colspan="3">
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#confirmarVaciarCarro"><i class="bi bi-trash3-fill"></i>Eliminar Todo</button>
+                        </td>
+                        <div class="modal fade" id="confirmarVaciarCarro" tabindex="-1" role="dialog" aria-labelledby="confirmarVaciarCarroLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmarVaciarCarroLabel">Confirmar Vaciar Carro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas vaciar el carrito?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <a href="{% url 'carro:limpiar' %}" class="btn btn-danger"><i class="bi bi-trash3-fill"></i>&emsp;Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">
+                            <div class="alert alert-danger text-center">
+                                Sin productos
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="3">
+                        Total: $ {{ importe_total_carro|floatformat:3|intcomma }} pesos
+                    </td>
+                </tr>
+                {% if request.session.carrito.items %}
+                    <tr>
+                        <td colspan="3" style="text-align: center;">
+                            <a href="../pedidos" class="btn btn-success">Comprar</a>
+                        </td>
+                    </tr>
+                {% endif %}
+                </tfoot>
+            </table>
+        </div>
+        
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Maneja el clic en el botón de sumar
+        $(document).on("click", ".boton_sumar", function(event) {
+          event.preventDefault();
+          var url = $(this).attr("href");
+      
+          // Realiza una solicitud AJAX GET a la URL
+          $.get(url, function(data) {
+            // Actualiza solo la parte de la tabla del carrito
+            $("#table-car").html($(data).find("#table-car").html());
+          });
+        });
+      
+        // Maneja el clic en el botón de restar (puedes hacer lo mismo para eliminar)
+        $(document).on("click", ".boton_restar", function(event) {
+          event.preventDefault();
+          var url = $(this).attr("href");
+      
+          // Realiza una solicitud AJAX GET a la URL
+          $.get(url, function(data) {
+            // Actualiza solo la parte de la tabla del carrito
+            $("#table-car").html($(data).find("#table-car").html());
+          });
+        });
+  
+        // Maneja el clic en el botón de sumar
+        $(document).on("click", ".boton_eliminar", function(event) {
+          event.preventDefault();
+          var url = $(this).attr("href");
+      
+          // Realiza una solicitud AJAX GET a la URL
+          $.get(url, function(data) {
+            // Actualiza solo la parte de la tabla del carrito
+            $("#table-car").html($(data).find("#table-car").html());
+          });
+        });
+      });
+</script>
+
+
+

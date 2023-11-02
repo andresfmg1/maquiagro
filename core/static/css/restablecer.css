@@ -1,0 +1,13 @@
+.container_reset{
+    background: linear-gradient(to bottom, #f4f4f4, #e4e4dd);
+    width: 500px;
+    margin: 0 auto;
+    text-align: left;
+    padding: 20px;
+    border: 1px solid  #f4f4f4;;
+    border-radius: 5px;
+    text-align:center;
+    margin-top: 100px;
+    margin-bottom: 40PX;
+}
+

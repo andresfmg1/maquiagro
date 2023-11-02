@@ -1,0 +1,17 @@
+.container-restablecer{
+    margin-top: 90px;
+    margin-bottom: 50px;
+}
+.form-restablecer{
+    background: linear-gradient(to bottom, #f4f4f4, #e7e7df);
+    width: 500px;
+    margin: 0 auto;
+    text-align: left;
+    padding: 20px;
+    border: 1px solid  #f4f4f4;;
+    border-radius: 5px;
+    text-align:center;
+}
+.resett{
+    margin-top: 20px;
+}

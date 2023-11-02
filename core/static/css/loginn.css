@@ -1,0 +1,77 @@
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+  form {
+    width: 90%; /* Reduce el ancho del formulario para adaptarlo a pantallas pequeñas */
+    max-width: 400px; /* Establece un ancho máximo */
+    margin: 0 auto; /* Centra el formulario horizontalmente */
+  }
+
+  label {
+    font-size: 16px; /* Reduce el tamaño de fuente de las etiquetas */
+    margin-bottom: 8px; /* Reduce el espacio entre etiquetas */
+  }
+
+  input,
+  textarea {
+    font-size: 14px; /* Reduce el tamaño de fuente de los campos de entrada */
+  }
+  
+  input[type="submit"] {
+    font-size: 16px; /* Aumenta el tamaño de fuente del botón de envío */
+    padding: 10px 15px; /* Ajusta el espaciado del botón */
+  }
+
+  /* Añade más estilos específicos para pantallas pequeñas si es necesario */
+}
+
+/* Estilos generales */
+.errorlist {
+  color: red;
+}
+
+form {
+  background: linear-gradient(to bottom, #f4f4f4, #e7e7df);
+  width: 500px;
+  margin: 0 auto;
+  text-align: left;
+  padding: 20px;
+  border: 1px solid #f4f4f4;
+  border-radius: 5px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1d1414;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+input[type="submit"] {
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  padding: 14px 22px; /* Ajusta el espaciado en el hover */
+}
+
+/* Estilos generales para todas las pantallas */
+/* ... */
+
+/* Estilos específicos para pantallas pequeñas */
